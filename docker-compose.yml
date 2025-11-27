@@ -15,6 +15,10 @@ services:
       # - postgres
     env_file:
       - .env
+    networks:
+      default:
+        aliases:
+          - mongo
 
   # Ensure your DATABASE_URI uses 'mongo' as the hostname ie. mongodb://mongo/my-db-name
   mongo:
