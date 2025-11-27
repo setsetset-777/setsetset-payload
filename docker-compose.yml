@@ -4,7 +4,7 @@ services:
   payload:
     image: node:18-alpine
     ports:
-      - '${HOST_PORT:-3000}'
+      - '${HOST_PORT:-3000}:3000'
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
@@ -15,8 +15,6 @@ services:
       # - postgres
     env_file:
       - .env
-    networks:
-      - shared
 
   # Ensure your DATABASE_URI uses 'mongo' as the hostname ie. mongodb://mongo/my-db-name
   mongo:
@@ -29,8 +27,6 @@ services:
       - data:/data/db
     logging:
       driver: ${MONGO_LOG_DRIVER:-none}
-    networks:
-      - shared
 
   # Uncomment the following to use postgres
   # postgres:
@@ -45,7 +41,3 @@ volumes:
   data:
   # pgdata:
   node_modules:
-
-networks:
-  shared:
-    driver: bridge
