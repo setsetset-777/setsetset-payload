@@ -9,7 +9,7 @@ services:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
-    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm ${BUILD_CMD:-start}"
+    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm ${BUILD_CMD:-dev}"
     depends_on:
       - mongo
       # - postgres
@@ -26,7 +26,7 @@ services:
     volumes:
       - data:/data/db
     logging:
-      driver: local
+      driver: ${MONGO_LOG_DRIVER:-none}
 
   # Uncomment the following to use postgres
   # postgres:
