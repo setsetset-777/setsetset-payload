@@ -4,24 +4,31 @@ services:
   payload:
     image: node:18-alpine
     ports:
-      - '${HOST_PORT:-3000}:3000'
+      - '${HOST_PORT:-3000}'
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
-    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm build && pnpm start"
+    command: sh -c 'corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm build && pnpm start'
     depends_on:
       - mongo
     env_file:
       - .env
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.payload.rule=Host(`payload.setsetset.net`)'
+      - 'traefik.http.routers.payload.entrypoints=websecure'
+      - 'traefik.http.routers.payload.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.payload.loadbalancer.server.port=${HOST_PORT:-3000}'
     networks:
       - dokploy-network
+
 
   mongo:
     image: mongo:latest
     hostname: setsetset-mongo
     ports:
-      - '${MONGO_PORT:-27017}:27017'
+      - '${MONGO_PORT:-27017}'
     command:
       - --storageEngine=wiredTiger
     volumes:
