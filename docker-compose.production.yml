@@ -1,8 +1,9 @@
 services:
   payload:
     image: node:18-alpine
-    expose:
+    ports:
       - '${HOST_PORT:-3000}'
+      - 80
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
@@ -12,12 +13,6 @@ services:
       - mongo
     env_file:
       - .env
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.payload.rule=Host(`payload.setsetset.net`)'
-      - 'traefik.http.routers.payload.entrypoints=websecure'
-      - 'traefik.http.routers.payload.tls.certresolver=letsencrypt'
-      - 'traefik.http.services.payload.loadbalancer.server.port=${HOST_PORT:-3001}'
     networks:
       - dokploy-network
 
