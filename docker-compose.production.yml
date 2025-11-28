@@ -3,7 +3,6 @@ services:
     image: node:18-alpine
     ports:
       - '${HOST_PORT:-3000}'
-      - 80
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
