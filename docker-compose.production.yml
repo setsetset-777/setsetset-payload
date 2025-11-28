@@ -1,6 +1,5 @@
 services:
   payload:
-    image: node:18-alpine
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules

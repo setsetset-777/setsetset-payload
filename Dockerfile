@@ -18,7 +18,6 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
@@ -33,7 +32,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && corepack prepare pnpm@latest --activate && pnpm run build; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && corepack prepare pnpm@latest --activate && pnpm build; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
@@ -69,4 +68,5 @@ USER nextjs
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD HOSTNAME="0.0.0.0" node server.js
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "/app/server.js"]
