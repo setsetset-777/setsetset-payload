@@ -1,9 +1,11 @@
+# docker-compose
 services:
   payload:
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
+    # Let's use docker to handle the build and server
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,9 +15,14 @@ services:
       - .env
     restart: always
     ports:
+	    # We only set the container port. Dokploy handles it on the host side
       - 3000
     networks:
+	    # We must use dokploy external networkl for traefik to have access to the container
       - dokploy-network
+    # traefik handle the domain
+    # There should be no domain set in the GUI
+    # setsetset-payload must be unique to the app
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.setsetset-payload.rule=Host(`payload.setsetset.net`)"
