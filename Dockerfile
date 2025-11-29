@@ -60,4 +60,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD ["pnpm", "start"]
+ENV HOSTNAME="0.0.0.0"
+# server.js should be accessible from current folder but it can't be found.
+# Try and error lead me to see it at /app
+CMD ["node", "/app/server.js"]
+# CMD ["pnpm", "start"]
