@@ -1,6 +1,6 @@
 services:
   payload:
-    image: node:22-alpine
+    image: node:24-alpine
     ports:
       - '${HOST_PORT:-3000}:3000'
     volumes:
@@ -12,27 +12,19 @@ services:
       - mongo
     env_file:
       - .env
-    networks:
-      - dokploy-network
 
+  # Ensure your DATABASE_URI uses 'mongo' as the hostname ie. mongodb://mongo/my-db-name
   mongo:
     image: mongo:latest
-    hostname: setsetset-mongo
     ports:
-      - '${MONGO_PORT:-27017}:27017'
+      - '${MONGO_PORT:-3000}:27017'
     command:
       - --storageEngine=wiredTiger
     volumes:
       - data:/data/db
     logging:
-      driver: ${MONGO_LOG_DRIVER:-none}
-    networks:
-      - dokploy-network
+      driver: none
 
 volumes:
   data:
   node_modules:
-
-networks:
-  dokploy-network:
-    external: true

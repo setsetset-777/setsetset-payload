@@ -14,11 +14,11 @@ services:
     env_file:
       - .env
     restart: always
+    # We only set the container port. Dokploy handles it on the host side
     ports:
-	    # We only set the container port. Dokploy handles it on the host side
       - 3000
+    # We must use dokploy external networkl for traefik to have access to the container
     networks:
-	    # We must use dokploy external networkl for traefik to have access to the container
       - dokploy-network
     # traefik handle the domain
     # There should be no domain set in the GUI

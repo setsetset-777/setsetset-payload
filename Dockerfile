@@ -1,7 +1,7 @@
 # To use this Dockerfile, you have to set `output: 'standalone'` in your next.config.mjs file.
 # From https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 
-FROM node:22.17.0-alpine AS base
+FROM node:24-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -60,7 +60,4 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-ENV HOSTNAME="0.0.0.0"
-# server.js should be accessible from current folder but it can't be found.
-# Try and error lead me to see it at /app
-CMD ["node", "/app/server.js"]
+CMD ["pnpm", "start"]
