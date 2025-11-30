@@ -2,6 +2,10 @@ import { GlobalConfig } from 'payload'
 
 export const Contact: GlobalConfig = {
   slug: 'contact',
+  label: {
+    en: 'Contact',
+    fr: 'Contact',
+  },
   fields: [
     {
       name: 'text',
@@ -16,7 +20,7 @@ export const Contact: GlobalConfig = {
       name: 'email',
       type: 'email',
       label: {
-        en: 'Contact email',
+        en: 'Contact e-mail',
         fr: 'Email de contact',
       },
       localized: true,
@@ -31,4 +35,10 @@ export const Contact: GlobalConfig = {
       localized: true,
     },
   ],
+  admin: {
+    group: {
+      en: 'Pages',
+      fr: 'Pages',
+    },
+  },
 }

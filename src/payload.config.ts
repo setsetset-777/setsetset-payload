@@ -9,7 +9,6 @@ import { en } from '@payloadcms/translations/languages/en'
 import { fr } from '@payloadcms/translations/languages/fr'
 
 import { Users } from './collections/Users'
-import { Services } from './collections/Services'
 
 import { Home } from  './globals/Home'
 import { Contact } from  './globals/Contact'
@@ -48,7 +47,6 @@ export default buildConfig({
   },
   collections: [
     Users,
-    Services
   ],
   globals: [
     Home,

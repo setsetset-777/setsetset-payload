@@ -68,7 +68,6 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
-    services: Service;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -77,7 +76,6 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
-    services: ServicesSelect<false> | ServicesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -89,12 +87,12 @@ export interface Config {
   globals: {
     home: Home;
     contact: Contact;
-    'services-page': ServicesPage;
+    services: Service;
   };
   globalsSelect: {
     home: HomeSelect<false> | HomeSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
-    'services-page': ServicesPageSelect<false> | ServicesPageSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
   };
   locale: 'en' | 'fr';
   user: User & {
@@ -149,22 +147,6 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services".
- */
-export interface Service {
-  id: string;
-  title: string;
-  Items?:
-    | {
-        label: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -186,15 +168,10 @@ export interface PayloadKv {
  */
 export interface PayloadLockedDocument {
   id: string;
-  document?:
-    | ({
-        relationTo: 'users';
-        value: string | User;
-      } | null)
-    | ({
-        relationTo: 'services';
-        value: string | Service;
-      } | null);
+  document?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
@@ -261,21 +238,6 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services_select".
- */
-export interface ServicesSelect<T extends boolean = true> {
-  title?: T;
-  Items?:
-    | T
-    | {
-        label?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -321,6 +283,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Home {
   id: string;
   catch?: string | null;
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -338,11 +301,24 @@ export interface Contact {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services-page".
+ * via the `definition` "services".
  */
-export interface ServicesPage {
+export interface Service {
   id: string;
   text?: string | null;
+  service?:
+    | {
+        title?: string | null;
+        competences?:
+          | {
+              label: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -352,6 +328,7 @@ export interface ServicesPage {
  */
 export interface HomeSelect<T extends boolean = true> {
   catch?: T;
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -370,10 +347,23 @@ export interface ContactSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services-page_select".
+ * via the `definition` "services_select".
  */
-export interface ServicesPageSelect<T extends boolean = true> {
+export interface ServicesSelect<T extends boolean = true> {
   text?: T;
+  service?:
+    | T
+    | {
+        title?: T;
+        competences?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

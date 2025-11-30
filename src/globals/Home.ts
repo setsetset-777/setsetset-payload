@@ -2,6 +2,10 @@ import { GlobalConfig } from 'payload'
 
 export const Home: GlobalConfig = {
   slug: 'home',
+  label: {
+    en: 'Home',
+    fr: 'Accueil',
+  },
   fields: [
     {
       name: 'catch',
@@ -13,4 +17,13 @@ export const Home: GlobalConfig = {
       localized: true,
     },
   ],
+  versions: {
+    drafts: true,
+  },
+  admin: {
+    group: {
+      en: 'Pages',
+      fr: 'Pages',
+    },
+  },
 }

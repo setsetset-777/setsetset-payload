@@ -2,6 +2,16 @@ import type { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  labels: {
+    plural: {
+      en: 'Users',
+      fr: 'Utilisateurs',
+    },
+    singular: {
+      en: 'User',
+      fr: 'Utilisateur',
+    }
+  },
   admin: {
     useAsTitle: 'email',
   },
