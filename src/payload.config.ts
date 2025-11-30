@@ -27,7 +27,7 @@ export default buildConfig({
     autoLogin:
       process.env.NODE_ENV === 'development'
         ? {
-            email: 'admin@test.com',
+            email: process.env.ADMIN_EMAIL,
           }
         : false,
   },
