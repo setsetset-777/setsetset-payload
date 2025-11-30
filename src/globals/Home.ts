@@ -10,6 +10,7 @@ export const Home: GlobalConfig = {
         en: 'Catch phrase',
         fr: 'Accroche',
       },
+      localized: true,
     },
   ],
 }

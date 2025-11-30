@@ -4,9 +4,14 @@ export const Services: CollectionConfig = {
   slug: 'services',
   fields: [
     {
-      name: 'Title',
+      name: 'title',
+      label: {
+        en: 'Label',
+        fr: 'Titre',
+      },
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'Items',
@@ -15,7 +20,12 @@ export const Services: CollectionConfig = {
         {
           name: 'label',
           type: 'text',
-          required: true
+          label: {
+            en: 'Label',
+            fr: 'Titre',
+          },
+          required: true,
+          localized: true,
         }
       ]
     }

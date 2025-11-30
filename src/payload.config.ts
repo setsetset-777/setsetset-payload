@@ -42,6 +42,10 @@ export default buildConfig({
       }
     }
   },
+  localization: {
+    locales: ['en', 'fr'],
+    defaultLocale: 'en',
+  },
   collections: [
     Users,
     Services

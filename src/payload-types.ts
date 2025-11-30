@@ -96,7 +96,7 @@ export interface Config {
     contact: ContactSelect<false> | ContactSelect<true>;
     'services-page': ServicesPageSelect<false> | ServicesPageSelect<true>;
   };
-  locale: null;
+  locale: 'en' | 'fr';
   user: User & {
     collection: 'users';
   };
@@ -153,7 +153,7 @@ export interface User {
  */
 export interface Service {
   id: string;
-  Title: string;
+  title: string;
   Items?:
     | {
         label: string;
@@ -264,7 +264,7 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
-  Title?: T;
+  title?: T;
   Items?:
     | T
     | {

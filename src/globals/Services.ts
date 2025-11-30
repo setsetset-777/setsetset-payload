@@ -11,6 +11,7 @@ export const Services: GlobalConfig = {
         en: 'Text',
         fr: 'Texte',
       },
+      localized: true,
     },
   ],
 }

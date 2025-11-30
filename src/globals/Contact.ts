@@ -10,6 +10,7 @@ export const Contact: GlobalConfig = {
         en: 'Text',
         fr: 'Texte',
       },
+      localized: true,
     },
     {
       name: 'email',
@@ -18,14 +19,16 @@ export const Contact: GlobalConfig = {
         en: 'Contact email',
         fr: 'Email de contact',
       },
+      localized: true,
     },
     {
       name: 'button-label',
       type: 'text',
       label: {
         en: 'Button Label',
-        fr: 'Etiquette du bouton',
+        fr: 'Titre du bouton',
       },
+      localized: true,
     },
   ],
 }
