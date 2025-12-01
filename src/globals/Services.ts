@@ -8,6 +8,15 @@ export const Services: GlobalConfig = {
   },
   fields: [
     {
+      name: 'title',
+      type: 'text',
+      label: {
+        en: 'Title',
+        fr: 'Titre',
+      },
+      localized: true,
+    },
+    {
       name: 'text',
       type: 'textarea',
       label: {

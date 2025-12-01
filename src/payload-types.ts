@@ -395,6 +395,7 @@ export interface Home {
  */
 export interface Service {
   id: string;
+  title?: string | null;
   text?: string | null;
   service?:
     | {
@@ -418,6 +419,7 @@ export interface Service {
  */
 export interface Contact {
   id: string;
+  title?: string | null;
   text?: string | null;
   email?: string | null;
   'button-label'?: string | null;
@@ -440,6 +442,7 @@ export interface HomeSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
   text?: T;
   service?:
     | T
@@ -463,6 +466,7 @@ export interface ServicesSelect<T extends boolean = true> {
  * via the `definition` "contact_select".
  */
 export interface ContactSelect<T extends boolean = true> {
+  title?: T;
   text?: T;
   email?: T;
   'button-label'?: T;

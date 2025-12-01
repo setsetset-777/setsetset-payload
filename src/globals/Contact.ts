@@ -8,11 +8,20 @@ export const Contact: GlobalConfig = {
   },
   fields: [
     {
+      name: 'title',
+      type: 'text',
+      label: {
+        en: 'Title',
+        fr: 'Titre',
+      },
+      localized: true,
+    },
+    {
       name: 'text',
       type: 'textarea',
       label: {
-        en: 'Text',
-        fr: 'Texte',
+        en: 'Introduction',
+        fr: 'Introduction',
       },
       localized: true,
     },
