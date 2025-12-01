@@ -9,10 +9,13 @@ import { en } from '@payloadcms/translations/languages/en'
 import { fr } from '@payloadcms/translations/languages/fr'
 
 import { Users } from './collections/Users'
+import { WorkTags } from './collections/WorkTags'
+import { Works } from './collections/Works'
+import { WorkTypes } from './collections/WorkTypes'
 
 import { Home } from  './globals/Home'
 import { Contact } from  './globals/Contact'
-import { Services as ServicesPage} from './globals/Services'
+import { Services } from './globals/Services'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -47,11 +50,14 @@ export default buildConfig({
   },
   collections: [
     Users,
+    WorkTags,
+    Works,
+    WorkTypes,
   ],
   globals: [
     Home,
+    Services,
     Contact,
-    ServicesPage
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

@@ -68,14 +68,24 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
+    worktags: Worktag;
+    works: Work;
+    'work-types': WorkType;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    'work-types': {
+      Works: 'works';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    worktags: WorktagsSelect<false> | WorktagsSelect<true>;
+    works: WorksSelect<false> | WorksSelect<true>;
+    'work-types': WorkTypesSelect<false> | WorkTypesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -86,13 +96,13 @@ export interface Config {
   };
   globals: {
     home: Home;
-    contact: Contact;
     services: Service;
+    contact: Contact;
   };
   globalsSelect: {
     home: HomeSelect<false> | HomeSelect<true>;
-    contact: ContactSelect<false> | ContactSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
+    contact: ContactSelect<false> | ContactSelect<true>;
   };
   locale: 'en' | 'fr';
   user: User & {
@@ -147,6 +157,49 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "worktags".
+ */
+export interface Worktag {
+  id: string;
+  label: string;
+  short: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "works".
+ */
+export interface Work {
+  id: string;
+  _works_Works_order?: string | null;
+  title: string;
+  tag?: (string | Worktag)[] | null;
+  type?: (string | null) | WorkType;
+  year?: string | null;
+  url?: string | null;
+  code?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "work-types".
+ */
+export interface WorkType {
+  id: string;
+  title: string;
+  text?: string | null;
+  Works?: {
+    docs?: (string | Work)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -168,10 +221,23 @@ export interface PayloadKv {
  */
 export interface PayloadLockedDocument {
   id: string;
-  document?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'worktags';
+        value: string | Worktag;
+      } | null)
+    | ({
+        relationTo: 'works';
+        value: string | Work;
+      } | null)
+    | ({
+        relationTo: 'work-types';
+        value: string | WorkType;
+      } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
@@ -238,6 +304,42 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "worktags_select".
+ */
+export interface WorktagsSelect<T extends boolean = true> {
+  label?: T;
+  short?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "works_select".
+ */
+export interface WorksSelect<T extends boolean = true> {
+  _works_Works_order?: T;
+  title?: T;
+  tag?: T;
+  type?: T;
+  year?: T;
+  url?: T;
+  code?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "work-types_select".
+ */
+export interface WorkTypesSelect<T extends boolean = true> {
+  title?: T;
+  text?: T;
+  Works?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -289,18 +391,6 @@ export interface Home {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact".
- */
-export interface Contact {
-  id: string;
-  text?: string | null;
-  email?: string | null;
-  'button-label'?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "services".
  */
 export interface Service {
@@ -324,23 +414,23 @@ export interface Service {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+  id: string;
+  text?: string | null;
+  email?: string | null;
+  'button-label'?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
   catch?: T;
   _status?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact_select".
- */
-export interface ContactSelect<T extends boolean = true> {
-  text?: T;
-  email?: T;
-  'button-label'?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -364,6 +454,18 @@ export interface ServicesSelect<T extends boolean = true> {
         id?: T;
       };
   _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact_select".
+ */
+export interface ContactSelect<T extends boolean = true> {
+  text?: T;
+  email?: T;
+  'button-label'?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
