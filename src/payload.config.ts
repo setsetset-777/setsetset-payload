@@ -59,6 +59,9 @@ export default buildConfig({
     Services,
     Contact,
   ],
+  routes: {
+    admin: "/"
+  },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
