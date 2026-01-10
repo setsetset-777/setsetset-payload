@@ -23,12 +23,12 @@ services:
     # traefik handle the domain
     # There should be no domain set in the GUI
     # setsetset-payload must be unique to the app
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.http.routers.setsetset-payload.rule=Host(`payload.setsetset.net`)"
-    #   - "traefik.http.routers.setsetset-payload.entrypoints=websecure"
-    #   - "traefik.http.routers.setsetset-payload.tls.certResolver=letsencrypt"
-    #   - "traefik.http.services.setsetset-payload.loadbalancer.server.port=3000"
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.setsetset-payload.rule=Host(`${HOSTNAME}`)'
+      - 'traefik.http.routers.setsetset-payload.entrypoints=websecure'
+      - 'traefik.http.routers.setsetset-payload.tls.certResolver=letsencrypt'
+      - 'traefik.http.services.setsetset-payload.loadbalancer.server.port=3000'
 
   mongo:
     image: mongo:latest
