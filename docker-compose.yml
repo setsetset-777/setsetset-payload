@@ -16,7 +16,7 @@ services:
     restart: always
     # We only set the container port. Dokploy handles it on the host side
     ports:
-      - 3000
+      - ${HOST_PORT:-3000}
     # We must use dokploy external networkl for traefik to have access to the container
     networks:
       - dokploy-network
