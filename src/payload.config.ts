@@ -13,8 +13,8 @@ import { WorkTags } from './collections/WorkTags'
 import { Works } from './collections/Works'
 import { WorkTypes } from './collections/WorkTypes'
 
-import { Home } from  './globals/Home'
-import { Contact } from  './globals/Contact'
+import { Home } from './globals/Home'
+import { Contact } from './globals/Contact'
 import { Services } from './globals/Services'
 
 const filename = fileURLToPath(import.meta.url)
@@ -39,28 +39,19 @@ export default buildConfig({
       en: {
         general: {
           dashboard: 'Home',
-          globals: 'Pages'
+          globals: 'Pages',
         },
-      }
-    }
+      },
+    },
   },
   localization: {
     locales: ['en', 'fr'],
     defaultLocale: 'en',
   },
-  collections: [
-    Users,
-    WorkTags,
-    Works,
-    WorkTypes,
-  ],
-  globals: [
-    Home,
-    Services,
-    Contact,
-  ],
+  collections: [Users, WorkTags, Works, WorkTypes],
+  globals: [Home, Services, Contact],
   routes: {
-    admin: "/"
+    admin: '/',
   },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

@@ -1,8 +1,9 @@
 services:
   payload:
     image: node:24-alpine
+    container_name: setsetset-payload
     ports:
-      - '${HOST_PORT:-3000}:3000'
+      - '${HOST_PORT:-3000}:${HOST_PORT:-3000}'
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
@@ -12,22 +13,28 @@ services:
       - mongo
     env_file:
       - .env
+    networks:
+      - setsetset-network
 
   # Ensure your DATABASE_URI uses 'mongo' as the hostname ie. mongodb://mongo/my-db-name
   mongo:
     image: mongo:latest
+    container_name: setsetset-mongo
     ports:
-      - '${MONGO_PORT:-3000}:27017'
+      - '${MONGO_PORT:-27017}:${MONGO_PORT:-27017}'
     command:
       - --storageEngine=wiredTiger
     volumes:
       - data:/data/db
     logging:
       driver: none
-
-  frontnd:
-    image: my-frontend-docekr-image
+    networks:
+      - setsetset-network
 
 volumes:
   data:
   node_modules:
+
+networks:
+  setsetset-network:
+    name: setsetset-network

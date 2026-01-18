@@ -10,9 +10,9 @@ This repository is a test of PayloadCMS implemented to setsetset to evaluate it 
 docker-compose up
 ```
 
-2. Run the payload app
-```
-npm run dev
-```
+1. Open http://localhost:3000 in your browser
 
-3. Open http://localhost:3000 in your browser
+You can change the port in the .env file
+```
+HOST_PORT=3030
+```
