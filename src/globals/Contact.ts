@@ -32,7 +32,7 @@ export const Contact: GlobalConfig = {
         en: 'Contact e-mail',
         fr: 'Email de contact',
       },
-      localized: true,
+      localized: false,
     },
     {
       name: 'button-label',

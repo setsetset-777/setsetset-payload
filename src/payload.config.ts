@@ -20,6 +20,11 @@ import { Services } from './globals/Services'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const localization = {
+  locales: ['en', 'fr'],
+  defaultLocale: 'en',
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -44,10 +49,7 @@ export default buildConfig({
       },
     },
   },
-  localization: {
-    locales: ['en', 'fr'],
-    defaultLocale: 'en',
-  },
+  localization,
   collections: [Users, WorkTags, Works, WorkTypes],
   globals: [Home, Services, Contact],
   routes: {
@@ -64,5 +66,14 @@ export default buildConfig({
   sharp,
   plugins: [
     // storage-adapter-placeholder
+  ],
+  endpoints: [
+    {
+      path: '/locales',
+      method: 'get',
+      handler: async (req) => {
+        return Response.json(localization)
+      },
+    },
   ],
 })
