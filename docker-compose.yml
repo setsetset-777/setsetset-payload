@@ -2,9 +2,10 @@
 services:
   payload:
     volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
+      - .:/app
+      - node_modules:/app/node_modules
+      - ./media:/app/media
+    working_dir: /app/
     # Let's use docker to handle the build and server
     build:
       context: .

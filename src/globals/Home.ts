@@ -16,6 +16,11 @@ export const Home: GlobalConfig = {
       },
       localized: true,
     },
+    {
+      name: 'hero',
+      type: 'upload',
+      relationTo: 'media',
+    },
   ],
   versions: {
     drafts: true,

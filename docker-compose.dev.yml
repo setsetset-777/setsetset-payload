@@ -1,16 +1,22 @@
 services:
   payload:
-    image: node:24-alpine
+    image: node:25-alpine
     container_name: setsetset-payload
     ports:
       - '${HOST_PORT:-3000}:${HOST_PORT:-3000}'
     volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
+      - .:/app
+      - /app/node_modules
+      - ./media:/app/media
+    working_dir: /app/
+    command: sh -c "
+      npm i -g pnpm &&
+      pnpm install &&
+      pnpm dev"
     depends_on:
       - mongo
+    environment:
+      CI: 'true'
     env_file:
       - .env
     networks:

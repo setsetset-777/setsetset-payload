@@ -16,6 +16,7 @@ import { WorkTypes } from './collections/WorkTypes'
 import { Home } from './globals/Home'
 import { Contact } from './globals/Contact'
 import { Services } from './globals/Services'
+import { Media } from './collections/Media'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -50,7 +51,7 @@ export default buildConfig({
     },
   },
   localization,
-  collections: [Users, WorkTags, Works, WorkTypes],
+  collections: [Users, WorkTags, Works, WorkTypes, Media],
   globals: [Home, Services, Contact],
   routes: {
     admin: '/',
