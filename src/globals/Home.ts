@@ -21,6 +21,10 @@ export const Home: GlobalConfig = {
       type: 'upload',
       relationTo: 'media',
     },
+    {
+      name: 'test',
+      type: 'text',
+    },
   ],
   versions: {
     drafts: true,
